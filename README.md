@@ -20,14 +20,34 @@ The kit supplies:
 
 ## Author one owned schema
 
-```rust,no_run
-use lenso_postgres_kit::{Migration, OwnedPostgres, SchemaOperator, SchemaPlan};
+Keep SQL in the owning Module's `migrations/` directory and include it in the
+binary at compile time. The Rust declaration remains the explicit ordered
+schema plan; the SQL body stays reviewable as SQL:
 
-const MIGRATIONS: &[Migration] = &[
-    Migration::new(
+```text
+orders-module/
+├── migrations/
+│   ├── 001_create_orders.sql
+│   └── 002_add_order_status.sql
+└── src/
+    └── lib.rs
+```
+
+```rust,no_run
+use lenso_postgres_kit::{
+    Migration, OwnedPostgres, SchemaOperator, SchemaPlan, sql_migrations,
+};
+
+const MIGRATIONS: &[Migration] = sql_migrations![
+    (
         1,
         "create-orders",
-        "CREATE TABLE orders (id bigint PRIMARY KEY, total_cents bigint NOT NULL)",
+        "migrations/001_create_orders.sql",
+    ),
+    (
+        2,
+        "add-order-status",
+        "migrations/002_add_order_status.sql",
     ),
 ];
 
@@ -46,6 +66,12 @@ let count: i64 = sqlx::query_scalar("SELECT count(*) FROM orders")
 # Ok(())
 # }
 ```
+
+Paths are relative to the owning crate's `Cargo.toml`. `sql_migrations!`
+expands to `include_str!` for each file. There is no runtime directory scan, so
+missing files fail compilation, file changes trigger a rebuild, and the
+existing migration checksum still binds version, stable name, and exact SQL.
+Never edit an applied SQL file; append the next numbered file.
 
 When a new migration is linked, preparation returns `UpgradeRequired`. Stop
 the owning Module, run `SchemaOperator::upgrade`, and then prepare the new
