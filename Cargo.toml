@@ -4,10 +4,10 @@ version = "0.1.0"
 edition = "2024"
 rust-version = "1.94"
 license = "MIT"
-description = "Module-owned PostgreSQL schema lifecycle kit for Lenso applications"
+description = "Plugin-owned PostgreSQL schema lifecycle kit for Lenso applications"
 repository = "https://github.com/LioRael/lenso-postgres-kit"
 readme = "README.md"
-keywords = ["lenso", "postgresql", "migration", "module"]
+keywords = ["lenso", "postgresql", "migration", "plugin"]
 categories = ["database"]
 
 [dependencies]

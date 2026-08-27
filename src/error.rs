@@ -18,7 +18,7 @@ pub enum PostgresKitError {
     /// The schema exists, but was not created by this lifecycle protocol.
     #[error("schema `{schema}` exists without the Lenso migration ledger")]
     UnmanagedSchema { schema: String },
-    /// The configured database role does not own the Module schema.
+    /// The configured database role does not own the Plugin schema.
     #[error("schema `{schema}` is owned by `{owner}`, not current role `{current_role}`")]
     OwnershipMismatch {
         schema: String,
@@ -40,7 +40,7 @@ pub enum PostgresKitError {
     /// Applied migration history no longer matches the immutable authored plan.
     #[error("schema `{schema}` migration history diverged at version {version}")]
     HistoryDiverged { schema: String, version: u64 },
-    /// The database is newer than the linked Module implementation.
+    /// The database is newer than the linked Plugin implementation.
     #[error("schema `{schema}` is at version {actual}, newer than supported version {expected}")]
     SchemaAhead {
         schema: String,
