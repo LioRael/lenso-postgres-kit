@@ -9,7 +9,7 @@ use crate::{Migration, PostgresKitError, SchemaPlan, SetupOutcome, UpgradeOutcom
 
 const LEDGER_TABLE: &str = "_lenso_schema_migrations";
 
-/// A verified, schema-scoped `PostgreSQL` pool for one Module.
+/// A verified, schema-scoped `PostgreSQL` pool for one Plugin.
 #[derive(Clone, Debug)]
 pub struct OwnedPostgres {
     plan: SchemaPlan,
@@ -50,7 +50,7 @@ impl OwnedPostgres {
         Ok(Self { plan, pool })
     }
 
-    /// Returns the verified Module-owned schema name.
+    /// Returns the verified Plugin-owned schema name.
     pub fn schema(&self) -> &str {
         self.plan.schema()
     }
@@ -63,8 +63,8 @@ impl OwnedPostgres {
     /// Returns the `SQLx` pool scoped to the owned schema through `search_path`.
     ///
     /// Production deployments should also use one non-superuser `PostgreSQL`
-    /// role per Module; `PostgreSQL` grants, not `search_path`, are the security
-    /// boundary against access to another Module's schema.
+    /// role per Plugin; `PostgreSQL` grants, not `search_path`, are the security
+    /// boundary against access to another Plugin's schema.
     pub const fn pool(&self) -> &PgPool {
         &self.pool
     }

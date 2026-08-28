@@ -1,7 +1,7 @@
-//! `PostgreSQL` lifecycle support for storage owned by one Lenso Module.
+//! `PostgreSQL` lifecycle support for storage owned by one Lenso Plugin.
 //!
-//! This crate deliberately is not a shared State Module, SQL Capability, or
-//! repository abstraction. A Module keeps ownership of its data model,
+//! This crate deliberately is not a shared State Plugin, SQL Capability, or
+//! repository abstraction. A Plugin keeps ownership of its data model,
 //! migrations, queries, and transaction boundaries. The kit only makes the
 //! repetitive `PostgreSQL` schema lifecycle explicit and fail-closed.
 

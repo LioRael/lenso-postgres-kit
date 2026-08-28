@@ -3,7 +3,7 @@ use std::{fmt, sync::Arc};
 use sha2::{Digest, Sha256};
 use thiserror::Error;
 
-/// One immutable, ordered migration owned by a Module.
+/// One immutable, ordered migration owned by a Plugin.
 #[derive(Clone, Copy)]
 pub struct Migration {
     version: u64,
@@ -54,7 +54,7 @@ impl fmt::Debug for Migration {
     }
 }
 
-/// An immutable description of one Module-owned `PostgreSQL` schema.
+/// An immutable description of one Plugin-owned `PostgreSQL` schema.
 #[derive(Clone)]
 pub struct SchemaPlan {
     schema: Arc<str>,
@@ -73,12 +73,12 @@ impl SchemaPlan {
         Ok(Self { schema, migrations })
     }
 
-    /// Returns the `PostgreSQL` schema name owned by the Module.
+    /// Returns the `PostgreSQL` schema name owned by the Plugin.
     pub fn schema(&self) -> &str {
         &self.schema
     }
 
-    /// Returns the current version declared by the Module.
+    /// Returns the current version declared by the Plugin.
     pub fn current_version(&self) -> u64 {
         self.migrations.last().map_or(0, Migration::version)
     }
