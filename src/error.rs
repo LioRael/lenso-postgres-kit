@@ -1,3 +1,4 @@
+use crate::sqlx;
 use thiserror::Error;
 
 use crate::PlanError;

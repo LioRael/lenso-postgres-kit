@@ -5,6 +5,8 @@
 //! migrations, queries, and transaction boundaries. The kit only makes the
 //! repetitive `PostgreSQL` schema lifecycle explicit and fail-closed.
 
+pub mod sqlx;
+
 mod error;
 mod lifecycle;
 mod plan;

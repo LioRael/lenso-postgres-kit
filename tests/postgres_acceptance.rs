@@ -1,3 +1,4 @@
+use lenso_postgres_kit::sqlx;
 use std::sync::atomic::{AtomicU64, Ordering};
 
 use lenso_postgres_kit::{

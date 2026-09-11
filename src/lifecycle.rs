@@ -1,3 +1,4 @@
+use crate::sqlx;
 use std::str::FromStr;
 
 use sqlx::{

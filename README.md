@@ -98,3 +98,11 @@ cargo test --locked --all-features
 LENSO_POSTGRES_TEST_URL=postgres://... \
   cargo test --locked --test postgres_acceptance -- --ignored
 ```
+
+### Composing PostgreSQL and SQLite
+
+PostgreSQL Plugins can import query types with `use lenso_postgres_kit::sqlx`.
+This module re-exports upstream PostgreSQL and SQLx core types without loading
+the multi-database SQLx facade or its SQLite native library constraints. Hosts
+can therefore retain their independent SQLite storage. SQL and schema ownership
+remain in each Plugin.
