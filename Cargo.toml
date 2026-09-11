@@ -10,6 +10,9 @@ readme = "README.md"
 keywords = ["lenso", "postgresql", "migration", "plugin"]
 categories = ["database"]
 
+[features]
+uuid = ["sqlx-core/uuid", "sqlx-postgres/uuid"]
+
 [dependencies]
 hex = "0.4"
 sha2 = "0.11"
